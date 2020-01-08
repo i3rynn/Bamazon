@@ -31,6 +31,9 @@ var promptCustomer = function (res) {
         message: "What would you like to purchase? [Quit with Q]"
     }]).then(function (answer) {
         varcorrect = false;
+        if(answer.choice.toUpperCase()=="Q"){
+            process.exit();
+        }
         for (var i = 0; i < res.length; i++) {
             if (res[i].productname == answer.choice) {
                 correct = true;
@@ -54,12 +57,15 @@ var promptCustomer = function (res) {
                             makeTable();
                     })
                 }else{
-                    console.log("Not a valid selection!");
+                    console.log("Invalid selection!");
                     promptCustomer(res);
                 }
                 })
 
             }
         }
-    })
-//paused at 6:45
+        if (i==res.length && correct==false){
+            console.log("Invalid selection!");
+            promptCustomer(res);
+        }
+    }) 
